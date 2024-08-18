@@ -1,0 +1,61 @@
+<form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
+    <div>
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" ngModel #name="ngModel" (focus)="onFieldFocus()" (blur)="onFieldBlur('name')">
+        <div *ngIf="errors.name">{{ errors.name }}</div>
+      </div>
+    
+      <div>
+        <label for="age">Age</label>
+        <input type="number" id="age" name="age" ngModel #age="ngModel" (focus)="onFieldFocus()" (blur)="onFieldBlur('age')">
+        <div *ngIf="errors.age">{{ errors.age }}</div>
+      </div>
+    
+      <div>
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" ngModel #email="ngModel" (focus)="onFieldFocus()" (blur)="onFieldBlur('email')">
+        <div *ngIf="errors.email">{{ errors.email }}</div>
+      </div>
+
+      <div>
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" ngModel #password="ngModel" (focus)="onFieldFocus()" required minlength="8" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$">
+        <div *ngIf="errors.password">{{ errors.password }}</div>
+    </div>
+  
+    <div>
+      <label for="street">Street</label>
+      <input type="text" id="street" name="address.street" ngModel (focus)="onFieldFocus()">
+      <div *ngIf="errors['address.street']">{{ errors['address.street'] }}</div>
+    </div>
+  
+    <div>
+      <label for="city">City</label>
+      <input type="text" id="city" name="address.city" ngModel (focus)="onFieldFocus()">
+      <div *ngIf="errors['address.city']">{{ errors['address.city'] }}</div>
+    </div>
+  
+    <div>
+      <label for="state">State</label>
+      <input type="text" id="state" name="address.state" ngModel (focus)="onFieldFocus()">
+      <div *ngIf="errors['address.state']">{{ errors['address.state'] }}</div>
+    </div>
+  
+    <div>
+      <label for="hobbies">Hobbies</label>
+      <input type="text" id="hobbies" name="hobbies" ngModel (focus)="onFieldFocus()">
+      <div *ngIf="errors.hobbies">{{ errors.hobbies }}</div>
+    </div>
+  
+    <div>
+      <label for="status">Status</label>
+      <select id="status" name="status" ngModel (focus)="onFieldFocus()">
+        <option value="active">Active</option>
+        <option value="inactive">Inactive</option>
+      </select>
+      <div *ngIf="errors.status">{{ errors.status }}</div>
+    </div>
+  
+    <button type="submit">Submit</button>
+  </form>
+  

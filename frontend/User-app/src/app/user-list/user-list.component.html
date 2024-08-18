@@ -1,0 +1,34 @@
+<!-- user-list.component.html -->
+<table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Age</th>
+        <th>Address</th>
+        <th>Hobbies</th>
+        <th>Status</th>
+        <th>Actions</th> <!-- New column for delete button -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.age }}</td>
+        <td>{{ user.address.street }}, {{ user.address.city }}, {{ user.address.state }}</td>
+        <td>
+          <ul>
+            <li *ngFor="let hobby of user.hobbies">{{ hobby }}</li>
+          </ul>
+        </td>
+        <td>{{ user.status }}</td>
+        <td>
+          <button (click)="deleteUser(user._id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <button (click)="clicked()">Click me</button>
+  

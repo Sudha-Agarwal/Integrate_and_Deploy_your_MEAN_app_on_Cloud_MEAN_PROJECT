@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    networks:
+      - app_networks
+    depends_on:
+      - mongo
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/myDB
+  
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+     - "4200:80"
+    networks:
+      - app_networks
+    depends_on:
+      - backend
+  
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27107"
+    networks:
+      - app_networks
+
+networks:
+   app_networks:
+     driver: bridge
+

@@ -1,0 +1,39 @@
+Build the image using docker-compose
+docker-compose build --no-cache
+
+To push the image on docker hub, we first need to tag the docker hub image name with the local image name
+
+docker tag mean_app-backend sudhaagarwal/mean_app-backend:latest
+docker tag mean_app-frontend sudhaagarwal/mean_app-frontend:latest
+
+first login to docker hub account
+docker login
+
+push the tagged iamge on docker hub
+docker push sudhaagarwal/mean_app-backend:latest
+docker push sudhaagarwal/mean_app-frontend:latest
+
+now start the ec2 instance:
+1. create a linux machine
+2. connect to the ec2 instance
+3. modify the security group - edit inbound rules
+    add rules for the ports on which our application is running
+    4200, 3000, 27017 - allow from any location/ip address
+4. install docker on ec2 instance:
+    sudo yum update -y
+    sudo yum install docker -y
+    sudo systemctl start docker
+5. Pull the docker images from docker hub
+    sudo docker pull sudhaagarwal/mean_app-backend:latest
+    sudo docker pull sudhaagarwal/mean_app-frontend:latest
+    sudo docker pull mongo:latest
+6. Run the images
+    sudo docker network create app_networks
+    sudo docker run -d --name mongo --network app_networks -p 27017:27017 mongo:latest
+
+    sudo docker run -d --name backend --network app_networks -p 3000:3000 -e MONGO_URI=mongodb://mongo:27017/myDB sudhaagarwal/mean_app-backend
+
+    sudo docker run -d --name frontend --network app_networks -p 4200:80 sudhaagarwal/mean_app-frontend
+
+7. Access the application:
+    <ec2-piblic-ip-address>:4200
